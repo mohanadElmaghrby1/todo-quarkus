@@ -40,6 +40,9 @@ public class TodoResource {
     @Transactional
     public Response updateTodo(Todo updatedTodo) {
         Todo todo = Todo.findById(updatedTodo.id);
+        if (todo == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("{\nmessage:\"todo with id: \"+id+\" not found\"\n}").build();
+        }
        todo.title=updatedTodo.title;
        todo.url=updatedTodo.url;
        todo.completed=updatedTodo.completed;
